@@ -5,8 +5,9 @@ import {Title, Card, Button} from 'react-native-paper'
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Profile = ()=>{
-    return(
+const Profile = (props)=>{
+    const {number,name,Des,type} = props.route.params.item
+        return(
         <View style={styles.root }>
          <LinearGradient
          colors={["#0033ff","#6bc1ff"]}
@@ -21,7 +22,7 @@ const Profile = ()=>{
 
          </View>
          <View style={{alignItems:"center"}}>
-             <Title>Subhan Ali</Title>
+        <Title>{name}</Title>
              <Text style={{fontSize:18}}>Employee</Text>
          </View>
         
@@ -29,7 +30,7 @@ const Profile = ()=>{
            <View style={styles.cardcontent}>  
            {/* <MaterialIcons name="description" size={24} color="black" /> */}
            <MaterialCommunityIcons size={24} color="black" />
-           <Title style={styles.mytext}>FSD 6758</Title>
+        <Title style={styles.mytext}>{number}</Title>
            </View>     
         </Card>
 
@@ -37,7 +38,7 @@ const Profile = ()=>{
            <View style={styles.cardcontent}>  
            {/* <MaterialIcons name="description" size={24} color="black" /> */}
            <MaterialCommunityIcons size={24} color="black" />
-           <Title style={styles.mytext}>Bike</Title>
+        <Title style={styles.mytext}>{type}</Title>
            </View>     
         </Card>
 

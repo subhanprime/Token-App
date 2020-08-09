@@ -4,19 +4,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Card, FAB} from 'react-native-paper'
 import { color } from 'react-native-reanimated';
- function Home (props){
+ function Home ({navigation}){
 
     const data = [
-        {id:1, number:"Fsd 2611", type:"Car"},
-        {id:1, number:"Fsd 2612" ,type:"Parado"},
-        {id:1, number:"Fsd 2637", type:"Bike"},
+        {id:1, number:"Fsd 2611", type:"Car",name:"Usam atta"},
+        {id:1, number:"Fsd 2612" ,type:"Parado",name:"Subhan ali"},
+        {id:1, number:"Fsd 2637", type:"Bike", name:"Sohail maqsood"},
      
-        {id:1, number:"Fsd 2637", type:"Bike"}
+        {id:1, number:"Fsd 7678", type:"Bike",name:"ali Haider"}
     ]
     const renderList = ((item,ind)=>{
         return(
 
-            <Card style={styles.mycard} key={ind} >
+            <Card style={styles.mycard} key={ind} 
+                onPress={()=>navigation.navigate("Profile",{item})}
+            >
             <View style={styles.cardview}>
             <Image
             style={{width:60,height:50,borderRadius:30}}
@@ -43,7 +45,7 @@ import { color } from 'react-native-reanimated';
             }}
             />
 
-                <FAB onPress={()=>props.navigation.navigate('Create')}
+                <FAB  onPress={()=>navigation.navigate('Create')}
                     style={styles.fab}
                     
                     small={false}

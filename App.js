@@ -35,7 +35,7 @@ const myoption= {
       <Stack.Screen
        name="Profile" 
        component={Profile} />
-      {/* <Stack.Screen name="Settings" component={Settings} /> */}
+    
     </Stack.Navigator>
         
         

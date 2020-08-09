@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal } from 'react-native';
+import { View, Text, StyleSheet, Modal, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 
 const RegisterVehicle = () => {
@@ -9,6 +12,41 @@ const RegisterVehicle = () => {
     const [Picture, SetPicture] = useState("")
     const [Desc, SetDesc] = useState("")
     const [modal, SetModal] = useState(false)
+
+    const pickFromGallery= async ()=>{
+       const {granted}= await Permissions.askAsync(Permissions.CAMERA_ROLL)
+        if(granted){
+            let data2 = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes:ImagePicker.MediaTypeOptions.Images,
+                allowsEditing:true,
+                aspect:[1,1],
+                quality:0.5
+            })
+            console.log(data2)
+        }else{
+            Alert.alert("you need to give up permission to work")
+            
+        }
+    }
+
+
+    const pickFromCamera= async ()=>{
+        const {granted}= await Permissions.askAsync(Permissions.CAMERA)
+         if(granted){
+             let data1 = await ImagePicker.launchCameraAsync({
+                 mediaTypes:ImagePicker.MediaTypeOptions.Images,
+                 allowsEditing:true,
+                 aspect:[1,1],
+                 quality:0.5
+             })
+             console.log(data1)
+         }else{
+             Alert.alert("you need to give up permission to work")
+             
+         }
+     }
+ 
+    
 
     return (
         <View style={styles.root}>
@@ -77,14 +115,15 @@ const RegisterVehicle = () => {
                      icon="camera" 
                      mode="contained" 
                      theme={theme}
-                     onPress={() => console.log("pressed")}>
+                     onPress={() => pickFromCamera()}>
                         camera
             </Button>
             <Button 
             icon="image-area" 
             mode="contained"
             theme={theme}
-            onPress={() => console.log("pressed")}>
+            onPress={() => pickFromGallery()}
+            >
                 Gallery
             </Button>
 

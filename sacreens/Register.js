@@ -9,20 +9,27 @@ import * as Permissions from 'expo-permissions';
 const RegisterVehicle = () => {
     const [Number, SetNumber] = useState("")
     const [Name, SetName] = useState("")
-    const [Picture, SetPicture] = useState("")
+    const [picture, SetPicture] = useState("")
     const [Desc, SetDesc] = useState("")
     const [modal, SetModal] = useState(false)
 
     const pickFromGallery= async ()=>{
        const {granted}= await Permissions.askAsync(Permissions.CAMERA_ROLL)
         if(granted){
-            let data2 = await ImagePicker.launchImageLibraryAsync({
+            let data = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes:ImagePicker.MediaTypeOptions.Images,
                 allowsEditing:true,
                 aspect:[1,1],
                 quality:0.5
             })
-            console.log(data2)
+            if(!data.cancelled){
+                let newfile = {
+                    uri:data.uri,
+                    type:`test/${data.uri.split(".")[1]}`,
+                    name:`test.${data.uri.split(".")[1]}`
+                }
+                handleUpload(newfile)
+            }
         }else{
             Alert.alert("you need to give up permission to work")
             
@@ -33,19 +40,43 @@ const RegisterVehicle = () => {
     const pickFromCamera= async ()=>{
         const {granted}= await Permissions.askAsync(Permissions.CAMERA)
          if(granted){
-             let data1 = await ImagePicker.launchCameraAsync({
+             let data = await ImagePicker.launchCameraAsync({
                  mediaTypes:ImagePicker.MediaTypeOptions.Images,
                  allowsEditing:true,
                  aspect:[1,1],
                  quality:0.5
              })
-             console.log(data1)
+             if(!data.cancelled){
+                 let newfile = {
+                     uri:data.uri,
+                     type:`test/${data.uri.split(".")[1]}`,
+                     name:`test.${data.uri.split(".")[1]}`
+                 }
+                 handleUpload(newfile)
+             }
          }else{
              Alert.alert("you need to give up permission to work")
              
          }
      }
  
+     const handleUpload = (image)=>{
+
+         const data = new FormData()
+         data.append('file',image)
+         data.append('upload_preset','tokenapp')
+         data.append('cloud_name','dfp9rww7e')
+
+         fetch("https://api.cloudinary.com/v1_1/dfp9rww7e/image/upload",{
+             method:"post",
+             body:data
+         }).then(res=>res.json()).
+         then(data=>{
+             console.log(data)
+             SetPicture(data.uri)
+         })
+
+     }
     
 
     return (
@@ -76,7 +107,7 @@ const RegisterVehicle = () => {
                 onChangeText={text => SetDesc(text)}
             />
 
-            <TextInput
+            {/* <TextInput
 
                 label='Picture'
                 style={styles.inputstyle}
@@ -84,10 +115,10 @@ const RegisterVehicle = () => {
                 theme={theme}
                 mode="outlined"
                 onChangeText={text => SetPicture(text)}
-            />
+            /> */}
 
             <Button style={styles.inputstyle} 
-            icon="upload" 
+            icon={picture==""?"upload":"check"} 
             mode="contained" 
             theme={theme}
             onPress={() => SetModal(true)}>

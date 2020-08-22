@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, Alert } from 'react-native';
+import { View, Text, StyleSheet, Modal, Alert, KeyboardAvoidingView} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 
-const RegisterVehicle = () => {
+const RegisterVehicle = ({navigation}) => {
     const [Number, SetNumber] = useState("")
     const [Name, SetName] = useState("")
     const [picture, SetPicture] = useState("")
     const [Desc, SetDesc] = useState("")
     const [modal, SetModal] = useState(false)
+
+
+    const submitData = () =>{
+        fetch ("http://797689183d8b.ngrok.io/send",{
+            method: "post",
+            headers:{
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify({
+                name:Name,
+                number:Number,
+                
+            })
+            
+
+        }).then(res=>res.json())
+        .then(data=>{
+            Alert.alert(`${data.number} is saved succesfully`)
+            navigation.navigate("Home")
+        })
+
+    }
 
     const pickFromGallery= async ()=>{
        const {granted}= await Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -80,7 +102,9 @@ const RegisterVehicle = () => {
     
 
     return (
+        
         <View style={styles.root}>
+            <KeyboardAvoidingView>
             <TextInput
                 label='Vehicle Number'
                 style={styles.inputstyle}
@@ -128,7 +152,7 @@ const RegisterVehicle = () => {
             icon="content-save" 
             mode="contained" 
             theme={theme}
-            onPress={() => console.log("pressed")}>
+            onPress={() => submitData()}>
                 save
             </Button>
             <Modal
@@ -172,6 +196,7 @@ const RegisterVehicle = () => {
  </View>
 
             </Modal>
+            </KeyboardAvoidingView>
         </View>
 
     )

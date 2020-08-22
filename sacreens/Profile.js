@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React from 'react';
 import { View, Text, StyleSheet,Image, FlatList } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {Title, Card, Button} from 'react-native-paper'
@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Profile = (props)=>{
-    const {number,name,Des,type} = props.route.params.item
+    const {_id,number,name,Des,type} = props.route.params.item
         return(
         <View style={styles.root }>
          <LinearGradient

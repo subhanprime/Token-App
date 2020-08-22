@@ -1,18 +1,30 @@
-import * as React from 'react';
-import { View, Text, StyleSheet,Image, FlatList } from 'react-native';
+import React ,{useEffect,useState}from 'react';
+import { View, Text, StyleSheet,Image, FlatList,ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Card, FAB} from 'react-native-paper'
 import { color } from 'react-native-reanimated';
  function Home ({navigation}){
 
-    const data = [
-        {id:1, number:"Fsd 2611", type:"Car",name:"Usam atta"},
-        {id:1, number:"Fsd 2612" ,type:"Parado",name:"Subhan ali"},
-        {id:1, number:"Fsd 2637", type:"Bike", name:"Sohail maqsood"},
+    const [data,setData] = useState([])
+    const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+            fetch("http://797689183d8b.ngrok.io/dos")
+            .then(res=> res.json())
+            .then(result=>{
+                setData(result)
+                setLoading(false)
+
+            })
+    },[])
+
+    // const data = [
+    //     {_id:1, number:"Fsd 2611", type:"Car",name:"Usam atta"},
+    //     {_id:1, number:"Fsd 2612" ,type:"Parado",name:"Subhan ali"},
+    //     {_id:1, number:"Fsd 2637", type:"Bike", name:"Sohail maqsood"},
      
-        {id:1, number:"Fsd 7678", type:"Bike",name:"ali Haider"}
-    ]
+    //     {_id:1, number:"Fsd 7678", type:"Bike",name:"ali Haider"}
+    // ]
     const renderList = ((item,ind)=>{
         return(
 
@@ -38,14 +50,28 @@ import { color } from 'react-native-reanimated';
         
 
         <View style={{flex:1}}>
-            <FlatList
-            data={data}
-            renderItem = {({item})=>{
-                return renderList(item)
-            }}
-            />
 
-                <FAB  onPress={()=>navigation.navigate('Create')}
+            
+            <View style={styles.center}>
+            { loading?
+             <ActivityIndicator size="large" color="#006aff"/>
+             :
+             <FlatList
+             data={data}
+             renderItem = {({item})=>{
+                 return renderList(item)
+             }}
+             keyExtractor={item=>item._id}
+             
+              />
+           
+          }
+           </View>
+
+      
+            
+
+                <FAB  onPress={()=> navigation.navigate('Create')}
                     style={styles.fab}
                     
                     small={false}
@@ -82,5 +108,10 @@ const styles =StyleSheet.create({
         bottom: 0,
         
       },
+
+    center:{
+        flex: 1,
+        justifyContent: "center"
+    }
   })
   

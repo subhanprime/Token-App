@@ -29,8 +29,14 @@ mongoose.connection.on("error",(err)=>{
     console.log("error",err)
 })
 
-app.get('/',(req,res)=>{
-    res.send("welcom to node js ")
+app.get('/dos',(req,res)=>{
+    Register.findByIdAndUpdate({}).then(data=>{
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+
+    // res.send("welcom to node js ")
 })
 
 app.post('/send',(req,res)=>{
@@ -46,14 +52,40 @@ app.post('/send',(req,res)=>{
     .then(data => {
         console.log(data)
 
-        res.send("sucsess")
+        res.send(data)
     }).catch(err=>{
         console.log(err)
     })
     
+})
+app.post('/delete',(req,res)=>{
+    Register.findByIdAndRemove(req.body.id)
+    .then(data=>{
+        console.log(data)
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+
+app.post('/update',(req,res)=>{
+    Register.findByIdAndUpdate(req.body.id,{
+
+        name:req.body.name,
+        number:req.body.number,
+        picture:req.body.picture
+
+    }).then(data=>{
+        console.log(data) 
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
 })
 
 app.listen(3000, (req,res)=>{
     console.log("server is runing")  
 
 })  
+
+

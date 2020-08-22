@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Card, FAB} from 'react-native-paper'
 import { color } from 'react-native-reanimated';
- function Home ({navigation}){
+
+ const Home =  ({navigation})=>{
 
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(true)
@@ -27,7 +28,7 @@ import { color } from 'react-native-reanimated';
     // ]
     const renderList = ((item,ind)=>{
         return(
-
+  
             <Card style={styles.mycard} key={ind} 
                 onPress={()=>navigation.navigate("Profile",{item})}
             >

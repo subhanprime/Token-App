@@ -1,5 +1,5 @@
 import React ,{useEffect,useState}from 'react';
-import { View, Text, StyleSheet,Image, FlatList,ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet,Image, FlatList,Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Card, FAB} from 'react-native-paper'
@@ -9,20 +9,31 @@ import { color } from 'react-native-reanimated';
 
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(true)
-    useEffect(()=>{
-            fetch("http://797689183d8b.ngrok.io/dos")
-            .then(res=> res.json())
+
+
+    const fetchData= ()=>{
+
+        fetch("http://c57b0842f265.ngrok.io/dos")
+              .then(res=> res.json())
             .then(result=>{
+               // console.log(result)
                 setData(result)
                 setLoading(false)
-
+                
+            }).catch(err=>{
+                Alert.alert("some thing went wrong")
             })
+
+    }
+      useEffect(()=>{
+
+         fetchData()  
     },[])
 
     // const data = [
-    //     {_id:1, number:"Fsd 2611", type:"Car",name:"Usam atta"},
-    //     {_id:1, number:"Fsd 2612" ,type:"Parado",name:"Subhan ali"},
-    //     {_id:1, number:"Fsd 2637", type:"Bike", name:"Sohail maqsood"},
+    //     {id:1, number:"Fsd 2611", type:"Car",name:"Usam atta"},
+    //     {id:1, number:"Fsd 2612" ,type:"Parado",name:"Subhan ali"},
+    //     {id:1, number:"Fsd 2637", type:"Bike", name:"Sohail maqsood"},
      
     //     {_id:1, number:"Fsd 7678", type:"Bike",name:"ali Haider"}
     // ]
@@ -52,7 +63,7 @@ import { color } from 'react-native-reanimated';
 
         <View style={{flex:1}}>
 
-            
+{/*             
             <View style={styles.center}>
             { loading?
              <ActivityIndicator size="large" color="#006aff"/>
@@ -67,7 +78,19 @@ import { color } from 'react-native-reanimated';
               />
            
           }
-           </View>
+           </View> */}
+
+
+            <FlatList
+             data={data}
+             renderItem = {({item})=>{
+                 return renderList(item)
+             }}
+             keyExtractor={item=>item._id}
+             onRefresh={()=>fetchData()} 
+             refreshing={loading}
+             
+              />    
 
       
             
@@ -82,6 +105,9 @@ import { color } from 'react-native-reanimated';
                     icon="plus"
                     
                 />
+
+
+            
         </View>
        
 

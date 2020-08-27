@@ -15,7 +15,7 @@ const RegisterVehicle = ({navigation}) => {
 
 
     const submitData = () =>{
-        fetch ("http://797689183d8b.ngrok.io/send",{
+        fetch ("http://c57b0842f265.ngrok.io/send",{
             method: "post",
             headers:{
                 'Content-type': 'application/json'
@@ -23,6 +23,7 @@ const RegisterVehicle = ({navigation}) => {
             body:JSON.stringify({
                 name:Name,
                 number:Number,
+                picture 
                 
             })
             
@@ -95,7 +96,8 @@ const RegisterVehicle = ({navigation}) => {
          }).then(res=>res.json()).
          then(data=>{
              console.log(data)
-             SetPicture(data.uri)
+             SetPicture(data.url)
+             SetModal(false)
          })
 
      }

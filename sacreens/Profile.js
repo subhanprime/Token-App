@@ -1,5 +1,5 @@
 import  React from 'react';
-import { View, Text, StyleSheet,Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet,Image, Alert } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {Title, Card, Button} from 'react-native-paper'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,29 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Profile = (props)=>{
     const {_id,number,name,Des,type} = props.route.params.item
+    console.log(_id)
+// deltevehicle = deletemployeee
+    const deleteVehicle = ()=>{
+
+        fetch("http://c57b0842f265.ngrok.io/delete",{
+            method: "post",
+            headers:{
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify({
+                id:_id
+            })
+        })
+        .then(res=>res.json())
+        .then(deleteVcl=>{
+            Alert.alert(`${deleteVcl.name} deleted`)
+            props.navigation.navigate("Home")
+        })
+        .catch(err=>{
+            Alert.alert("some thing went wrong")
+        })
+
+    }
         return(
         <View style={styles.root }>
          <LinearGradient
@@ -56,14 +79,17 @@ const Profile = (props)=>{
          icon="account-edit" 
         mode="contained"
         theme={theme}
-         onPress={() => console.log('Pressed')}>
+         onPress={() => {
+             props.navigation.navigate("Create",
+             {_id,number,name,Des,type})
+         }}>
            edit
         </Button>
         <Button 
         icon="delete"
          mode="contained" 
          theme={theme}
-         onPress={() => console.log('Pressed')}>
+         onPress={() => deleteVehicle()}>
            exit
         </Button>
         </View>

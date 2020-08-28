@@ -30,7 +30,7 @@ mongoose.connection.on("error",(err)=>{
 })
 
 app.get('/dos',(req,res)=>{
-    Register.findByIdAndUpdate({}).then(data=>{
+    Register.find({}).then(data=>{
         res.send(data)
     }).catch(err=>{
         console.log(err)

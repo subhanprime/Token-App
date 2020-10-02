@@ -13,7 +13,11 @@ import { color } from 'react-native-reanimated';
 
     const fetchData= ()=>{
 
+<<<<<<< HEAD
         fetch("http://c57b0842f265.ngrok.io/dos")
+=======
+        fetch("http://302a8333e064.ngrok.io/dos")
+>>>>>>> team
               .then(res=> res.json())
             .then(result=>{
                // console.log(result)
@@ -50,7 +54,7 @@ import { color } from 'react-native-reanimated';
             />
             <View style={{marginLeft:10}}>
         <Text style={styles.text}>{item.number}</Text>
-        <Text style={styles.text}> {item.type}</Text>
+        <Text style={styles.text}> {item.name}</Text>
 
             </View>
             </View>
@@ -118,7 +122,7 @@ export default Home;
 
 const styles =StyleSheet.create({
     mycard:{
-        margin:5,
+        margin:1,
         padding:5
     },
     cardview:{

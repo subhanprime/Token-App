@@ -13,7 +13,7 @@ const mongoUri = "mongodb+srv://token1:MEWT1glZnsF1ZfCm@cluster0.buzud.mongodb.n
 mongoose.connect(mongoUri,{
     useNewUrlParser:true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true  
 })
 .then(()=>console.log('mongodb connected server'))
 .catch(err => console.log(err))
@@ -54,7 +54,7 @@ app.post('/send',(req,res)=>{
 
         res.send(data)
     }).catch(err=>{
-        console.log(err)
+        console.log(err) 
     })
     
 })

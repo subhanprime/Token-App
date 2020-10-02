@@ -11,7 +11,11 @@ const Profile = (props)=>{
 // deltevehicle = deletemployeee
     const deleteVehicle = ()=>{
 
+<<<<<<< HEAD
         fetch("http://c57b0842f265.ngrok.io/delete",{
+=======
+        fetch("http://302a8333e064.ngrok.io/delete",{
+>>>>>>> team
             method: "post",
             headers:{
                 'Content-type': 'application/json'
@@ -61,7 +65,7 @@ const Profile = (props)=>{
            <View style={styles.cardcontent}>  
            {/* <MaterialIcons name="description" size={24} color="black" /> */}
            <MaterialCommunityIcons size={24} color="black" />
-        <Title style={styles.mytext}>{type}</Title>
+        <Title style={styles.mytext}>{name}</Title>
            </View>     
         </Card>
 

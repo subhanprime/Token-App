@@ -10,6 +10,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack'
 import { Fontisto } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import Tab1 from './sacreens/Tab1'
+import Tab2 from './sacreens/Tab2'
 
 //import { Icon } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 //import Apptabs from './sacreens/Ap
@@ -56,32 +58,32 @@ const Tab = createBottomTabNavigator();
   );
 }
 
-const Tab1 =()=>{
-  return(
-    <View>
-      <Text>
-        Tab1
-      </Text>
-    </View>
-  )
-}
+// const Tab1 =()=>{
+//   return(
+//     <View>
+//       <Text>
+//         Tab1
+//       </Text>
+//     </View>
+//   )
+// }
  
-const Tab2 =()=>{
-  return(
-    <View style={{alignItems:"center", justifyContent:"center"}}>
-      <Text>
-        Tab2
-      </Text>
-    </View>
-  )
-}
+// const Tab2 =()=>{
+//   return(
+//     <View style={{alignItems:"center", justifyContent:"center"}}>
+//       <Text>
+//         Tab2
+//       </Text>
+//     </View>
+//   )
+// }
 
 const AppTabs = ()=>{
   return(
     <Tab.Navigator
     initialRouteName="Tab1" 
     tabBarOptions={{
-      activeTintColor: 'red',
+      activeTintColor: '#8EA2A4',
     }}
     
     
@@ -90,20 +92,22 @@ const AppTabs = ()=>{
       component={Tab1} 
       options={{
         tabBarLabel: 'Tab1',
-        tabBarColor:'#009387@',
+        tabBarColor:'red',
+       
+
         tabBarIcon:()=>(
           //<MaterialCommunityIcons name="home" size={26} color="blue"/>
-          <AntDesign name="home" size={24} color="black" />
+          <AntDesign name="home" size={24} color="#32767B" />
         )
       }}
       />
       <Tab.Screen name="Tab2" 
-      component={Tab2} 
+      component={Tab2}
       options={{
         //tabBarLabel: 'updates',
         tabBarIcon:()=>(
           //<MaterialCommunityIcons name="bell" size={26} color="blue"/>
-          <MaterialCommunityIcons name="file-chart" size={24} color="black" />
+          <MaterialCommunityIcons name="file-chart" size={24} color="#32767B" />
         )
       }}
       />
@@ -113,7 +117,7 @@ const AppTabs = ()=>{
         //tabBarLabel: 'updates',
         tabBarIcon:()=>(
          // <MaterialCommunityIcons name="account" size={26} color="blue"/>
-         <Fontisto name="list-2" size={24} color="black" />
+         <Fontisto name="list-2" size={24} color="#32767B" />
 
         )
       }}

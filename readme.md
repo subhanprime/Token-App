@@ -8,3 +8,8 @@
 4.install ngrok 
 5. run cammand "npm start"
 > now you can easilly run this projct
+
+
+
+
+set REACT_NATIVE_PACKAGER_HOSTNAME=m

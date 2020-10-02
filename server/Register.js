@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const ListSchema = new mongoose.Schema({
-    name:String,
+    name:{
+        type:String,
+        required:true
+    },
     number:String,
     description:String,
     picture:String,
